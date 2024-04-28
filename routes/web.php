@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 //router auth
+
 Route::get('/login', 'App\Http\Controllers\ConnectController@getLogin')->name('login');
 Route::post('/login', 'App\Http\Controllers\ConnectController@postLogin')->name('login');
 Route::get('/register', 'App\Http\Controllers\ConnectController@getRegister')->name('register');

@@ -20,6 +20,20 @@
                     <i class="fa-solid fa-plus"></i>Agregar Cliente
                 </a>
             </div>
+            <script>
+                $(document).ready( function(){
+                    $('table').DataTable({
+                        "pageLength":3,
+                        LengthMenu:[
+                            [3,10,25,50],
+                            [3,10,25,50]
+                        ],
+                        "language":{
+                            "url":"https://cdn.datatables.net/plug-ins/2.0.5/i18n/es-MX.json"
+                        }
+                    });
+                });
+            </script>
             <table class="table">
                 <thead>
                     <tr>

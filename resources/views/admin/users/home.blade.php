@@ -13,6 +13,20 @@
         <div class="header">
             <h2 class="title"><i class="fa-solid fa-users"></i>Usuarios</h2>
         </div>
+        <script>
+            $(document).ready( function(){
+                $('table').DataTable({
+                    "pageLength":3,
+                    LengthMenu:[
+                        [3,10,25,50],
+                        [3,10,25,50]
+                    ],
+                    "language":{
+                        "url":"https://cdn.datatables.net/plug-ins/2.0.5/i18n/es-MX.json"
+                    }
+                });
+            });
+        </script>
 
         <div class="inside">
             <table class="table">

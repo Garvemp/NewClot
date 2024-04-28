@@ -34,5 +34,5 @@ Route::prefix('/admin')->group(function(){
     Route::get('/bill/{id}/edit', 'App\Http\Controllers\Admin\BillController@getBillEdit');
     Route::post('/bill/{id}/edit', 'App\Http\Controllers\Admin\BillController@postBillEdit');
     Route::get('/bill/{id}/delete', 'App\Http\Controllers\Admin\BillController@getBillDelete');
-
+    Route::get('/admin/bills/{id}/pdf', 'App\Http\Controllers\Admin\BillController@downloadPDF')->name('bill.pdf');
 });

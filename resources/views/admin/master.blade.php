@@ -22,6 +22,11 @@
             const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
         });
     </script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css" />
+  
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+
+   
 
 </head>
 <body>

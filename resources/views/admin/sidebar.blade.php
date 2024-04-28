@@ -11,7 +11,7 @@
                 <a href="{{ url('/logout')}}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Log Out">
                     <i class="fa-solid fa-right-from-bracket"></i></a>
             </div>
-            <div class="email">{{ Auth::user()->email}}</div>
+            
         </div>
     </div>
     <div class="main">

@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Product;
+use Illuminate\Support\Facades\View;
+use Dompdf\Options;
+use Dompdf\Dompdf;
+
 
 use Validator, Str, Config;
 
@@ -180,4 +184,42 @@ class BillController extends Controller
         endif;
     }
 
+    public function downloadPDF($id)
+    {
+        // Busca la factura en la base de datos
+        $bill = Bill::find($id);
+
+        // Verifica si la factura existe
+        if (!$bill) {
+            return back()->with('message', 'La factura especificada no existe')->with('typealert', 'danger');
+        }
+
+        // Renderiza la vista de factura en HTML
+        $view = View::make('admin.bills.pdf', compact('bill'))->render();
+
+        // Opciones para Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+
+        // Instancia Dompdf
+        $dompdf = new Dompdf($options);
+
+        // Carga el contenido HTML en Dompdf
+        $dompdf->loadHtml($view);
+
+        // Renderiza el PDF
+        $dompdf->render();
+
+        // Obtener el contenido del PDF como una cadena
+        $pdfContent = $dompdf->output();
+
+        // Nombre del archivo PDF
+        $filename = 'factura_' . $bill->id . '.pdf';
+
+        // Devolver el PDF como una respuesta HTTP para descargar
+        return response()->streamDownload(function () use ($pdfContent) {
+            echo $pdfContent;
+        }, $filename);
+    }
 }

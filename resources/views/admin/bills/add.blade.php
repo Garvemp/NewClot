@@ -138,25 +138,7 @@
                         </div>
                     </div>
 
-                    <div class="row mtop16">
-                        <div class="col-md-3">
-                            <label for="subtotal">Subtotal:</label>
-                            <div class="input-group">
-                                <div class="input-group mb-3">
-                                    <input type="number" name="subtotal" id="subtotal" class="form-control" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label for="total">Total:</label>
-                            <div class="input-group">
-                                <div class="input-group mb-3">
-                                    <input type="number" name="total" id="total" class="form-control" readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                
                 </div>
 
  
@@ -173,29 +155,38 @@
         </div>
     </div>
 </div>
-@endsection    
-@section('scripts')
-<script>
-    function calcularTotales() {
-    var price = parseFloat($('#price').val());
-    var indiscount = $('#indiscount').val() === '1' ? true : false;
-    var discount = parseFloat($('#discount').val());
+    @section('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function calcularTotales() {
+        var price = parseFloat($('#price').val());
+        var indiscount = $('#indiscount').val() === '1' ? true : false;
+        var discount = parseFloat($('#discount').val());
 
-    var subtotal = price + (indiscount ? discount : 0);
-    var total = subtotal + (subtotal * 0.19); // Asumiendo un impuesto del 19%
+        var subtotal = price + (indiscount ? discount : 0);
+        var total = subtotal + (subtotal * 0.19); // Asumiendo un impuesto del 19%
 
-    $('#subtotal').val(subtotal.toFixed(2)); // Mostrar el subtotal con dos decimales
-    $('#total').val(total.toFixed(2)); // Mostrar el total con dos decimales
-}
+        $('#subtotal').val(subtotal.toFixed(2)); // Mostrar el subtotal con dos decimales
+        $('#total').val(total.toFixed(2)); // Mostrar el total con dos decimales
 
-// Ejecutar la función al cargar la página
-$(document).ready(function() {
-    calcularTotales();
+        $('.form-control#subtotal').val(subtotal.toFixed(2));
+        $('.form-control#total').val(total.toFixed(2));
 
-    // Calcular nuevamente al cambiar el precio, el descuento o si está en descuento
-    $('#price, #indiscount, #discount').change(function() {
+    }
+
+    // Ejecutar la función al cargar la página
+    $(document).ready(function() {
         calcularTotales();
+
+        $('#price').on('input', function() {
+            calcularTotales();
+        });
+
+        // Calcular nuevamente al cambiar el precio, el descuento o si está en descuento
+        $('#price, #indiscount, #discount').change(function() {
+            calcularTotales();
+        });
     });
-});
-</script>
-@endsection
+    </script>
+    @endsection
+@endsection    

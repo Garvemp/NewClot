@@ -140,7 +140,7 @@
                             <label for="subtotal">Subtotal:</label>
                             <div class="input-group">
                                 <div class="input-group mb-3">
-                                    <input type="number" name="subtotal" id="subtotal" class="form-control" readonly>
+                                    <input type="number" id="subtotal" class="form-control" readonly>
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                             <label for="total">Total:</label>
                             <div class="input-group">
                                 <div class="input-group mb-3">
-                                    <input type="number" name="total" id="total" class="form-control" readonly>
+                                    <input type="number" id="total" class="form-control" readonly>
                                 </div>
                             </div>
                         </div>
@@ -183,11 +183,20 @@
 
         $('#subtotal').val(subtotal.toFixed(2));
         $('#total').val(total.toFixed(2));
+
+        $('.form-control#subtotal').val(subtotal.toFixed(2));
+        $('.form-control#total').val(total.toFixed(2));
+
+     
     }
 
     // Ejecutar la función al cargar la página
     $(document).ready(function() {
         calcularTotales();
+
+        $('#price').on('input', function() {
+            calcularTotales();
+        });
 
         // Calcular nuevamente al cambiar el precio, el descuento o si está en descuento
         $('#price, #indiscount, #discount').change(function() {
